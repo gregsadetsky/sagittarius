@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sagittarius</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <style>
+      body { 
+        line-height: 1.4;
+        font-size: 16px;
+        padding: 0 10px;
+        margin: 50px auto;
+        max-width: 650px;
+      }
+      #maincontent {
+        max-width:42em;margin:15 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <button style='font-size: 24px;' id='letsGo'>Start</button>
+
+    <video autoplay playsinline webkit-playsinline muted hidden></video>
+    <canvas id='canvas' width='800' height='600'></canvas>
+
+    <div id='debugImages' style='display:none'>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
