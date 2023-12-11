@@ -1,4 +1,4 @@
-# "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real"
+# A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real
 
 Please see below for a (real) demo:
 
