@@ -5,7 +5,11 @@ to see the video, go here ->> [https://sagittarius.greg.technology/](https://sag
 ## how to build
 
 - clone this repo, cd into it
+- duplicate `.env.example` and name the copy `.env`
+- fill out the `VITE_OPENAI_KEY=` value with your OpenAI api key. you must have access to the `gpt-4-vision-preview` model
+- then, run:
 - `npm install`
 - `npm run dev`
+- the demo will be running at [http://localhost:5173](http://localhost:5173)
 
-the in-browser dictation works best in Google Chrome
+note: the in-browser speech recognition works best in Google Chrome
