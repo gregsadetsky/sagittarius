@@ -66,3 +66,29 @@ export async function makeRequest(
     console.error(error);
   }
 }
+
+export async function textToSpeech(
+  text: string,
+  apiKey = DEFAULT_DEV_API_KEY
+) {
+  const body = {
+    model: "tts-1",
+    input: text,
+    voice: "alloy"
+  };
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/audio/speech", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(body),
+    });
+    const blob = await response.blob()
+    return blob
+  } catch (error) {
+    console.error(error);
+  }
+}
