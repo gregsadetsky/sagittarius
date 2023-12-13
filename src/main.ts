@@ -1,7 +1,8 @@
-import { makeRequest } from "./openai";
+import { makeOpenAIRequest } from "./openai";
 import { startDictation, stopDictation, restartDictation } from "./dictation";
 import { startCamera, stopCamera } from "./camera";
 import { scaleAndStackImagesAndGetBase64 } from "./imageStacker";
+import { makeGeminiRequest } from "./gemini";
 
 const IMAGE_STACK_SIZE = 3;
 
@@ -35,7 +36,16 @@ function dictationEventHandler(message?: string) {
     const base64 = scaleAndStackImagesAndGetBase64(imageStack);
     const textPrompt = unsentMessages.join(" ");
     unsentMessages = [];
-    makeRequest(textPrompt, base64).then((result) => {
+
+    let aiFunction = null;
+    aiFunction =
+      document.querySelector("#aiSelector")!.value === "gemini"
+        ? makeGeminiRequest
+        : makeOpenAIRequest;
+
+    aiFunction(textPrompt, base64).then((result) => {
+      console.log("result", result);
+
       // the dictation is catching its own speech!!!!! stop dictation before speaking.
       stopDictation();
       let utterance = new SpeechSynthesisUtterance(result);

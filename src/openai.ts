@@ -10,7 +10,7 @@ do not mention that there are a sequence of pictures. focus only on the image or
 don't comment if they are smiling. don't comment if they are frowning. just focus on what they're asking.
 `;
 
-export async function makeRequest(
+export async function makeOpenAIRequest(
   text: string,
   imageUrl: string,
   apiKey = DEFAULT_DEV_API_KEY
