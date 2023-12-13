@@ -11,5 +11,8 @@
   "devDependencies": {
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.1.1"
   }
 }
