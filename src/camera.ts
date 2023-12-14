@@ -17,7 +17,7 @@ export function startCamera() {
     .catch(function (e) {
       if (
         confirm(
-          "An error with camera occured:(" + e.name + ") Do you want to reload?"
+          "An error with camera occurred:(" + e.name + ") Do you want to reload?"
         )
       ) {
         location.reload();
