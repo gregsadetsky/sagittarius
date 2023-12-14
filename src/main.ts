@@ -1,4 +1,4 @@
-import { makeOpenAIRequest } from "./openai";
+import { makeOpenAIRequest, textToSpeech } from "./openai";
 import { startDictation, stopDictation, restartDictation } from "./dictation";
 import { startCamera, stopCamera } from "./camera";
 import { scaleAndStackImagesAndGetBase64 } from "./imageStacker";
@@ -48,12 +48,18 @@ function dictationEventHandler(message?: string) {
 
       // the dictation is catching its own speech!!!!! stop dictation before speaking.
       stopDictation();
-      let utterance = new SpeechSynthesisUtterance(result);
-      speechSynthesis.speak(utterance);
-      utterance.onend = () => {
-        restartDictation();
-        openAiCallInTransit = false;
-      };
+
+      textToSpeech(result).then((blob) => {
+        const audioURL = window.URL.createObjectURL(blob!);
+        const audio = new Audio();
+        audio.src = audioURL;
+        audio.play();
+
+        audio.onended = () => {
+          restartDictation();
+          openAiCallInTransit = false;
+        };
+      })
     });
   }
 }
