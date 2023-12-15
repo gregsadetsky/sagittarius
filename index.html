@@ -1,39 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sagittarius</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
-    <style>
-      body { 
-        line-height: 1.4;
-        font-size: 16px;
-        padding: 0 10px;
-        margin: 50px auto;
-        max-width: 650px;
-      }
-      #maincontent {
-        max-width:42em;margin:15 auto;
-      }
-    </style>
-  </head>
-  <body>
-    <button style='font-size: 24px;' id='letsGo'>Start</button>
 
-    <div style='margin-top:20px;margin-bottom:20px;'>
-      <select id='aiSelector'>
-        <option value="gemini">Gemini</option>
-        <option value="gpt">GPT-4</option>
-      </select>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sagittarius</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+  <link rel="stylesheet" type="text/css" href="src/style.css">
+</head>
+
+<body>
+  <div id="container">
+
+    <div class="switch-container">
+      <span class="label label-left"><img src="assets/OpenAI-GPT-4.png" id="gptLogo" /></span>
+      <div class="toggle-switch"><div class="toggle-slider" data-position="left"></div></div>
+      <span class="label label-right"><img src="assets/Google-Gemini-AI-Logo.png" id="geminiLogo" /><img src="assets/USA-flag.png" id="usaFlag">U.S. only</span>
     </div>
 
     <video autoplay playsinline webkit-playsinline muted hidden></video>
-    <canvas id='canvas' width='800' height='600'></canvas>
 
-    <div id='debugImages' style='display:none'>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <div id="instruction"><button id="startButton">Start</button>Start speaking and ask the AI what it recognizes, including hand gestures.</div>
+
+    <div id="promptOutput"></div>
+
+    <div id="debugImages" style="display:none;"></div>
+
+    <div id="footer">
+      Only works on <img src="assets/Google_Chrome_icon.png" id="chromeLogo" /> Chrome Browser on Desktop<br />
+      Forked from: <a href="https://github.com/gregsadetsky/sagittarius" target="blank">github.com/gregsadetsky/sagittarius</a><br />
+      OpenAI Model: <a href="https://platform.openai.com/docs/guides/vision" target="_blank">gpt-4-vision-preview</a><br />
+      Google Gemini Model: <a href="https://ai.google.dev/models/gemini" target="_blank">gemini-pro-vision</a><br />
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API" target="_blank">Web Speech API</a> for Speech Recognition and Speech Synthesis<br />
     </div>
+  </div>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

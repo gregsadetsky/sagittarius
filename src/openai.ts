@@ -10,11 +10,20 @@ do not mention that there are a sequence of pictures. focus only on the image or
 don't comment if they are smiling. don't comment if they are frowning. just focus on what they're asking.
 `;
 
+function outputDots(newMessage: string) {
+  const promptOutput = document.getElementById('promptOutput');
+  if (promptOutput) {
+    promptOutput.innerHTML += newMessage;
+    promptOutput.scrollTop = promptOutput.scrollHeight; // Auto-scroll to bottom
+  }
+}
+
 export async function makeOpenAIRequest(
   text: string,
   imageUrl: string,
   apiKey = DEFAULT_DEV_API_KEY
 ) {
+  console.log("Calling makeOpenAIRequest()...");
   const debugImage = new Image();
   debugImage.src = imageUrl;
   document.querySelector(
@@ -51,18 +60,44 @@ export async function makeOpenAIRequest(
     messages,
   };
 
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(body),
-    });
-    const data = await response.json();
-    return data.choices[0].message.content;
-  } catch (error) {
-    console.error(error);
+  // Define the number of retries and the initial delay in milliseconds
+  const maxRetries = 5;
+  const initialDelay = 1000; // 1 second
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify(body),
+        }
+      );
+
+      // If the response is successful, return the data
+      if (response.status !== 429) {
+        const data = await response.json();
+        return data.choices[0].message.content;
+      }
+
+      // If it's a 429 error and we've reached the max number of retries, throw an error
+      if (attempt === maxRetries) {
+        throw new Error("Max retries reached");
+      }
+
+      outputDots("...");
+      await new Promise((resolve) =>
+        setTimeout(resolve, initialDelay * Math.pow(2, attempt))
+      );
+    } catch (error) {
+      if (attempt === maxRetries || error.status !== 429) {
+        console.error(error);
+        throw error;
+      }
+    }
   }
 }
