@@ -29,6 +29,7 @@ function pushNewImageOnStack() {
 function dictationEventHandler(message?: string) {
   if (message) {
     unsentMessages.push(message);
+    updatePromptOutput(message);
   }
 
   if (!openAiCallInTransit) {
@@ -39,9 +40,9 @@ function dictationEventHandler(message?: string) {
 
     let aiFunction = null;
     aiFunction =
-      document.querySelector("#aiSelector")!.value === "gemini"
-        ? makeGeminiRequest
-        : makeOpenAIRequest;
+      (document.querySelector('.toggle-slider')?.getAttribute('data-position') === "left")
+        ? makeOpenAIRequest
+        : makeGeminiRequest;
 
     aiFunction(textPrompt, base64).then((result) => {
       console.log("result", result);
@@ -49,12 +50,21 @@ function dictationEventHandler(message?: string) {
       // the dictation is catching its own speech!!!!! stop dictation before speaking.
       stopDictation();
       let utterance = new SpeechSynthesisUtterance(result);
+      updatePromptOutput(utterance.text);
       speechSynthesis.speak(utterance);
       utterance.onend = () => {
         restartDictation();
         openAiCallInTransit = false;
       };
     });
+  }
+}
+
+export function updatePromptOutput(newMessage: string) {
+  const promptOutput = document.getElementById('promptOutput');
+  if (promptOutput) {
+    promptOutput.innerHTML += newMessage + '<br>';
+    promptOutput.scrollTop = promptOutput.scrollHeight; // Auto-scroll to bottom
   }
 }
 
@@ -67,7 +77,7 @@ function newMessagesWatcher() {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  document.querySelector("#letsGo")!.addEventListener("click", function () {
+  document.querySelector("#startButton")!.addEventListener("click", function () {
     isDictating = !isDictating;
 
     if (isDictating) {
@@ -82,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         newMessagesWatcher();
       }, 100);
 
-      document.querySelector("#letsGo")!.textContent = "Stop";
+      document.querySelector("#startButton")!.textContent = "Stop";
     } else {
       stopCamera();
       stopDictation();
@@ -90,7 +100,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       imageStackInterval && clearInterval(imageStackInterval);
       newMessagesWatcherInterval && clearInterval(newMessagesWatcherInterval);
 
-      document.querySelector("#letsGo")!.textContent = "Start";
+      document.querySelector("#startButton")!.textContent = "Start";
     }
   });
+});
+
+document.querySelector('.toggle-switch').addEventListener('click', function() {
+  var slider = document.querySelector('.toggle-slider');
+  if (slider.getAttribute('data-position') === 'right') {
+    slider.style.left = '0px';
+    slider.setAttribute('data-position', 'left');
+  } else {
+    slider.style.left = '40px';
+    slider.setAttribute('data-position', 'right');
+  }
 });

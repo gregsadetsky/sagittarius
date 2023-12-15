@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { updatePromptOutput } from "./main";
 
 const DEFAULT_DEV_API_KEY = import.meta.env.VITE_GEMINI_KEY;
 
@@ -19,6 +20,8 @@ don't comment if they are smiling. don't comment if they are frowning. just focu
 const genAI = new GoogleGenerativeAI(DEFAULT_DEV_API_KEY);
 
 export async function makeGeminiRequest(text: string, imageUrl: string) {
+  console.log("Calling makeGeminiRequest()...");
+
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   // split imageUrl of format "data:...;base64,<data>"
@@ -26,16 +29,23 @@ export async function makeGeminiRequest(text: string, imageUrl: string) {
   let [mimeType, data] = imageUrl.split(";base64,");
   mimeType = mimeType.split(":")[1];
 
-  const result = await model.generateContent([
-    GEMINI_SYSTEM_PROMPT.replace("{{USER_PROMPT}}", text),
-    {
-      inlineData: {
-        mimeType,
-        data,
+  try {
+    const result = await model.generateContent([
+      GEMINI_SYSTEM_PROMPT.replace("{{USER_PROMPT}}", text),
+      {
+        inlineData: {
+          mimeType,
+          data,
+        },
       },
-    },
-  ]);
-  const response = await result.response;
-  const content = await response.text();
-  return content;
+    ]);
+    const response = await result.response;
+    const content = await response.text();
+
+    return content;
+
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }

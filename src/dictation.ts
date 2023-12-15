@@ -6,6 +6,8 @@ declare global {
 
 let recognition = null;
 let lastAddedFinalResultIndex = -1;
+let isRecognitionRunning = false;
+let shouldRestartRecognition = false;
 
 export function startDictation(
   receivedEventsCallback: (message: string) => void
@@ -14,8 +16,30 @@ export function startDictation(
   recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = "en-US";
+
+  recognition.onstart = () => {
+    isRecognitionRunning = true;
+  };
+
+  recognition.onend = () => {
+    isRecognitionRunning = false;
+    if (shouldRestartRecognition) {
+      recognition.start();
+      shouldRestartRecognition = false; // Reset the flag after restarting
+    }
+  };
+
   recognition.onerror = (error: any) => {
-    console.log("error", error);
+    console.log("Speech Recognition Error: ", error);
+
+    // Check if the error is 'no-speech'
+    if (error.error === 'no-speech') {
+      console.log("No speech detected, restarting recognition...");
+      restartDictation(); // Call your restart function
+    } else {
+      // Handle other errors as required
+      isRecognitionRunning = false;
+    }
   };
 
   recognition.onresult = (event: any) => {
@@ -28,19 +52,30 @@ export function startDictation(
     });
 
     if (newMessages.length > 0) {
-      const trancription = newMessages.join(" ").trim();
-      receivedEventsCallback(trancription);
+      const transcription = newMessages.join(" ").trim();
+      console.log(transcription);
+      receivedEventsCallback(transcription);
     }
   };
 
-  recognition.start();
+  if (!isRecognitionRunning) {
+    recognition.start();
+  }
 }
 
 export function restartDictation() {
   lastAddedFinalResultIndex = -1;
-  recognition && recognition.start();
+
+  if (recognition && isRecognitionRunning) {
+    shouldRestartRecognition = true;
+    recognition.stop(); // This will trigger the onend event
+  } else if (recognition) {
+    recognition.start();
+  }
 }
 
 export function stopDictation() {
-  recognition && recognition.stop();
+  if (recognition && isRecognitionRunning) {
+      recognition.stop();
+  }
 }
