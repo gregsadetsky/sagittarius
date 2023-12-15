@@ -16,3 +16,10 @@
 - the demo will be running at [http://localhost:5173](http://localhost:5173)
 
 note: the in-browser speech recognition works best in Google Chrome
+
+## TODO
+
+- [ ] allow input of API keys as `<input>` on the page
+- [ ] deploy frontend to site i.e. sagittarius.greg.technology
+- [ ] enable streaming output..!
+- [ ] enable selection of dictation language
