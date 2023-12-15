@@ -20,6 +20,9 @@ note: the in-browser speech recognition works best in Google Chrome
 ## TODO
 
 - [ ] allow input of API keys as `<input>` on the page
-- [ ] deploy frontend to site i.e. sagittarius.greg.technology
+- [ ] deploy frontend to site i.e. sagittarius.greg.technology via vite+github actions
 - [ ] enable streaming output..!
+- [ ] make new video with 1) uses of repo in the wild / forks 2) UI improvements 3) streaming output / comparison
 - [ ] enable selection of dictation language
+- [ ] add allcontributors bot
+- [ ] add dependabot
