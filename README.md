@@ -1,10 +1,13 @@
-# Sagittarius -- A GPT-4/Gemini Voice/Video Exploration Tool
+# Sagittarius
 
-## originally known as "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real"
+What is this? A GPT-4/Gemini Voice/Video Exploration Tool!
 
-[Original video here](https://www.youtube.com/watch?v=__nL7Vc0OCg).
+Do you have an API key from either OpenAI or Gemini? [You can use the tool online](https://sagittarius.greg.technology/)! No need to install anything.
 
-[Heads-to-heads comparison of Gemini Pro and GPT-4](https://www.youtube.com/watch?v=1RrkRA7wuoE).
+See below for more context:
+
+- [Original "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real" video](https://www.youtube.com/watch?v=__nL7Vc0OCg).
+- [Heads-to-heads comparison of Gemini Pro and GPT-4](https://www.youtube.com/watch?v=1RrkRA7wuoE).
 
 ## how to build
 
@@ -24,7 +27,8 @@ note: the in-browser speech recognition works best in Google Chrome
 - [x] allow input of API keys as `<input>` on the page
 - [x] deploy frontend to site i.e. sagittarius.greg.technology via vite+github actions
 - [x] enable streaming output..!
-- [ ] make new video with 1) uses of repo in the wild / forks 2) UI improvements 3) streaming output / comparison
+- [x] make new video with 3) streaming output / comparison
 - [x] enable selection of dictation language
+- [ ] make new video with 1) uses of repo in the wild / forks 2) UI improvements
 - [ ] add allcontributors bot
 - [ ] add dependabot
