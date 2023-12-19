@@ -6,8 +6,9 @@ Do you have an API key from either OpenAI or Gemini? [You can use the tool onlin
 
 See below for more context:
 
-- [Original "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real" video](https://www.youtube.com/watch?v=__nL7Vc0OCg).
-- [Heads-to-heads comparison of Gemini Pro and GPT-4](https://www.youtube.com/watch?v=1RrkRA7wuoE).
+- [Original "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real" video](https://www.youtube.com/watch?v=__nL7Vc0OCg)
+- [Heads-to-heads comparison of Gemini Pro and GPT-4](https://www.youtube.com/watch?v=1RrkRA7wuoE)
+- [Sagittarius supports multiple voices, can be used by anyone on the internet, and is much faster! Yay](https://www.youtube.com/watch?v=4i0Kc8Za5WI)
 
 ## how to build
 
