@@ -1,4 +1,6 @@
-# A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real
+# Sagittarius -- A GPT-4/Gemini Voice/Video Exploration Tool
+
+## originally known as "A Remake of the Google Gemini Fake Demo, Except Using GPT-4 and It's Real"
 
 [Original video here](https://www.youtube.com/watch?v=__nL7Vc0OCg).
 
