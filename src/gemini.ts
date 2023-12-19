@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { stopDictation } from "./dictation";
 import { updatePromptOutput } from "./main";
-
-const DEFAULT_DEV_API_KEY = import.meta.env.VITE_GEMINI_KEY;
+import { type Speech } from "./speech";
 
 const GEMINI_SYSTEM_PROMPT = `the user is dictating with his or her camera on.
 they are showing you things visually and giving you text prompts.
@@ -17,10 +17,13 @@ don't comment if they are smiling. don't comment if they are frowning. just focu
 {{USER_PROMPT}}
 `;
 
-const genAI = new GoogleGenerativeAI(DEFAULT_DEV_API_KEY);
-
-export async function makeGeminiRequest(text: string, imageUrl: string) {
-  console.log("Calling makeGeminiRequest()...");
+export async function makeGeminiRequest(
+  text: string,
+  imageUrl: string,
+  apiKey: string,
+  speech: Speech
+) {
+  const genAI = new GoogleGenerativeAI(apiKey);
 
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
@@ -39,11 +42,14 @@ export async function makeGeminiRequest(text: string, imageUrl: string) {
         },
       },
     ]);
-    const response = await result.response;
-    const content = await response.text();
+    const response = result.response;
+    const content = response.text();
+
+    stopDictation();
+    updatePromptOutput(content);
+    await speech.speak(content);
 
     return content;
-
   } catch (error) {
     console.error(error);
     throw error;

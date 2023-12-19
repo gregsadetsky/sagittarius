@@ -16,25 +16,30 @@
     <div class="switch-container">
       <span class="label label-left"><img src="assets/OpenAI-GPT-4.png" id="gptLogo" /></span>
       <div class="toggle-switch"><div class="toggle-slider" data-position="left"></div></div>
-      <span class="label label-right"><img src="assets/Google-Gemini-AI-Logo.png" id="geminiLogo" /><img src="assets/USA-flag.png" id="usaFlag">U.S. only</span>
+      <span class="label label-right"><img src="assets/Google-Gemini-AI-Logo.png" id="geminiLogo" /></span>
+    </div>
+
+    <div class="api-key-container">
+      API Key: <input type="password" id='apiKey' value=''>
     </div>
 
     <video autoplay playsinline webkit-playsinline muted hidden></video>
 
     <canvas id="canvas" width="640" height="480"></canvas>
 
-    <div id="instruction"><button id="startButton">Start</button>Start speaking and ask the AI what it recognizes, including hand gestures.</div>
+    <div id="instruction"><button id="startButton">Start</button>Start speaking and ask the AI what it recognizes, including hand gestures.<br/>
+    Dictation & speech language: <select id='languageSelect'></select>
+    </div>
 
     <div id="promptOutput"></div>
 
     <div id="debugImages" style="display:none;"></div>
 
     <div id="footer">
-      Only works on <img src="assets/Google_Chrome_icon.png" id="chromeLogo" /> Chrome Browser on Desktop<br />
-      Forked from: <a href="https://github.com/gregsadetsky/sagittarius" target="blank">github.com/gregsadetsky/sagittarius</a><br />
+      Best experienced using <img src="assets/Google_Chrome_icon.png" id="chromeLogo" /> Google Chrome on desktop<br />
+      Repo: <a href="https://github.com/gregsadetsky/sagittarius" target="blank">github.com/gregsadetsky/sagittarius</a><br />
       OpenAI Model: <a href="https://platform.openai.com/docs/guides/vision" target="_blank">gpt-4-vision-preview</a><br />
       Google Gemini Model: <a href="https://ai.google.dev/models/gemini" target="_blank">gemini-pro-vision</a><br />
-      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API" target="_blank">Web Speech API</a> for Speech Recognition and Speech Synthesis<br />
     </div>
   </div>
 

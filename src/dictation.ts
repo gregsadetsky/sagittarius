@@ -10,12 +10,13 @@ let isRecognitionRunning = false;
 let shouldRestartRecognition = false;
 
 export function startDictation(
+  language: string,
   receivedEventsCallback: (message: string) => void
 ) {
   recognition = new window.webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
-  recognition.lang = "en-US";
+  recognition.lang = language;
 
   recognition.onstart = () => {
     isRecognitionRunning = true;
@@ -33,7 +34,7 @@ export function startDictation(
     console.log("Speech Recognition Error: ", error);
 
     // Check if the error is 'no-speech'
-    if (error.error === 'no-speech') {
+    if (error.error === "no-speech") {
       console.log("No speech detected, restarting recognition...");
       restartDictation(); // Call your restart function
     } else {
@@ -53,7 +54,6 @@ export function startDictation(
 
     if (newMessages.length > 0) {
       const transcription = newMessages.join(" ").trim();
-      console.log(transcription);
       receivedEventsCallback(transcription);
     }
   };
@@ -76,6 +76,6 @@ export function restartDictation() {
 
 export function stopDictation() {
   if (recognition && isRecognitionRunning) {
-      recognition.stop();
+    recognition.stop();
   }
 }

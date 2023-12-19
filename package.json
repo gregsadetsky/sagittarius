@@ -13,6 +13,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.1.1"
+    "@google/generative-ai": "^0.1.1",
+    "openai": "^4.23.0"
   }
 }
